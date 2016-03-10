@@ -17,12 +17,24 @@
 //自动重连
 #import "XMPPReconnect.h"
 
+//个人名片
+//个人名片模块
+#import "XMPPvCardTempModule.h"
+//头像模块
+#import "XMPPvCardAvatarModule.h"
+//数据存储
+#import "XMPPvCardCoreDataStorage.h"
+//数据模型
+#import "XMPPvCardTemp.h"
+
 @interface WLCXMPPTool : NSObject
 
 //属性
 @property (strong, nonatomic) XMPPStream *xmppStream;
 @property (strong, nonatomic) XMPPAutoPing *xmppAutoPing;
 @property (strong, nonatomic) XMPPReconnect *xmppReconnect;
+@property (strong, nonatomic) XMPPvCardTempModule *xmppvCardTempModule;
+@property (strong, nonatomic) XMPPvCardAvatarModule *xmppvCardAvatarModule;
 
 //方法
 //单例

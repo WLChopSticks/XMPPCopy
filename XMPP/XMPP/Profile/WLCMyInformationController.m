@@ -7,6 +7,7 @@
 //
 
 #import "WLCMyInformationController.h"
+#import "WLCXMPPTool.h"
 
 @interface WLCMyInformationController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
@@ -25,11 +26,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    //去网络获取个人信息数据并显示
+    [self getDataFromInternet];
+}
+
+
+#pragma -mark 获得网络上数据并显示
+-(void)getDataFromInternet {
+
+    XMPPvCardTemp *vCardTemp = [WLCXMPPTool sharedXMPPTool].xmppvCardTempModule.myvCardTemp;
+    self.myAvatar.image = [UIImage imageWithData:vCardTemp.photo];
+    self.myNickName.text = vCardTemp.nickname;
+    self.myDesc.text = vCardTemp.desc;
+    self.myJID.text = [WLCXMPPTool sharedXMPPTool].xmppStream.myJID.bare;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,59 +47,55 @@
 }
 
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0) {
+        
+        UIAlertController *actionSheetVC = [UIAlertController alertControllerWithTitle:@"选择头像" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        //从相册读取图片
+        UIAlertAction *albums = [UIAlertAction actionWithTitle:@"从相册读取" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            //打开相册
+            UIImagePickerController *imagePickerVC = [[UIImagePickerController alloc]init];
+            imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            imagePickerVC.delegate = self;
+            [self presentViewController:imagePickerVC animated:YES completion:nil];
 
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+        }];
+        [actionSheetVC addAction:albums];
+        
+        //从相机拍照
+        UIAlertAction *camera = [UIAlertAction actionWithTitle:@"现在拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            //打开相机(模拟器崩)
+            UIImagePickerController *imagePickerVC = [[UIImagePickerController alloc]init];
+            imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
+            imagePickerVC.delegate = self;
+            [self presentViewController:imagePickerVC animated:YES completion:nil];
+            
+        }];
+        [actionSheetVC addAction:camera];
+        
+        //取消
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDestructive handler:nil];
+        [actionSheetVC addAction:cancel];
+        
+        [self presentViewController:actionSheetVC animated:YES completion:nil];
+        
+    }
+}
+
+
+#pragma -mark imagePickView代理方法
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+
+    UIImage *pickImage = info[@"UIImagePickerControllerOriginalImage"];
+
+    self.myAvatar.image = pickImage;
+    //上传服务器
+    XMPPvCardTemp *vCardTemp = [WLCXMPPTool sharedXMPPTool].xmppvCardTempModule.myvCardTemp;
+    [vCardTemp setPhoto:UIImageJPEGRepresentation(pickImage, 0.1)];
+    [[WLCXMPPTool sharedXMPPTool].xmppvCardTempModule updateMyvCardTemp:vCardTemp];
     
-    // Configure the cell...
+    [self dismissViewControllerAnimated:YES completion:nil];
     
-    return cell;
 }
-*/
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -8,7 +8,7 @@
 
 #import "WLCXMPPTool.h"
 
-@interface WLCXMPPTool ()<XMPPStreamDelegate, XMPPAutoPingDelegate, XMPPReconnectDelegate>
+@interface WLCXMPPTool ()<XMPPStreamDelegate, XMPPAutoPingDelegate, XMPPReconnectDelegate, XMPPvCardTempModuleDelegate>
 
 @property (strong, nonatomic) XMPPJID *userJID;
 @property (strong, nonatomic) NSString *userPassWord;
@@ -53,6 +53,8 @@ static WLCXMPPTool *_INSTANCE;
     //开启自动重连
     [self turnOnReconnect];
     
+    //获取个人信息
+    [self getProfileInformation];
 
 }
 
@@ -83,13 +85,29 @@ static WLCXMPPTool *_INSTANCE;
     [reconnect activate:self.xmppStream];
 }
 
+//获取个人信息
+-(void)getProfileInformation {
+    
+    XMPPvCardTempModule *vCardTempModule = [[XMPPvCardTempModule alloc]initWithvCardStorage:[XMPPvCardCoreDataStorage sharedInstance] dispatchQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
+    self.xmppvCardTempModule = vCardTempModule;
+    [vCardTempModule addDelegate:self delegateQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
+    [vCardTempModule activate:self.xmppStream];
+    //获取头像
+//    XMPPvCardAvatarModule *vCardAvatarModule = [[XMPPvCardAvatarModule alloc]initWithvCardTempModule:vCardTempModule dispatchQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
+//    self.xmppvCardAvatarModule = vCardAvatarModule;
+//    [vCardAvatarModule activate:self.xmppStream];
+    
+    
+    
+}
+
 
 #pragma -mark xmpp代理方法
 -(void)xmppStreamDidConnect:(XMPPStream *)sender {
     NSLog(@"连接成功");
     
     //输入密码做授权
-    XMPPPlainAuthentication *plainAuth = [[XMPPPlainAuthentication alloc]initWithStream:self.xmppStream password:@"123"];
+    XMPPPlainAuthentication *plainAuth = [[XMPPPlainAuthentication alloc]initWithStream:self.xmppStream password:self.userPassWord];
     [self.xmppStream authenticate:plainAuth error:nil];
     
 }
@@ -117,6 +135,27 @@ static WLCXMPPTool *_INSTANCE;
 -(void)xmppAutoPingDidTimeout:(XMPPAutoPing *)sender {
     NSLog(@"未连接,链接超时");
 }
+
+#pragma -mark xmppvCardTempModule代理方法
+- (void)xmppvCardTempModule:(XMPPvCardTempModule *)vCardTempModule
+        didReceivevCardTemp:(XMPPvCardTemp *)vCardTemp
+                     forJID:(XMPPJID *)jid
+{
+    NSLog(@"didReceivevCardTemp");
+}
+
+- (void)xmppvCardTempModuleDidUpdateMyvCard:(XMPPvCardTempModule *)vCardTempModule
+{
+    
+    NSLog(@"xmppvCardTempModuleDidUpdateMyvCard");
+}
+
+- (void)xmppvCardTempModule:(XMPPvCardTempModule *)vCardTempModule failedToUpdateMyvCard:(NSXMLElement *)error
+{
+    NSLog(@"failedToUpdateMyvCard");
+}
+
+
 
 
 @end
