@@ -10,6 +10,10 @@
 
 @interface WLCInformationEditController ()
 
+@property (weak, nonatomic) IBOutlet UITextField *textField;
+- (IBAction)cancleBtnclick:(UIButton *)sender;
+- (IBAction)saveBtnClick:(UIButton *)sender;
+
 @end
 
 @implementation WLCInformationEditController
@@ -24,22 +28,25 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+
+//取消按钮  干掉栈顶控制器
+- (IBAction)cancleBtnclick:(UIButton *)sender {
+    
+
+    
+}
+//点击保存按钮就把最新的数据保存到数据库 并且 销毁栈顶控制器
+- (IBAction)saveBtnClick:(UIButton *)sender {
+
+    
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
-}
 
 /*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

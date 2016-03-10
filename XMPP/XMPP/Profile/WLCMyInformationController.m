@@ -8,7 +8,15 @@
 
 #import "WLCMyInformationController.h"
 
-@interface WLCMyInformationController ()
+@interface WLCMyInformationController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+
+@property (weak, nonatomic) IBOutlet UIImageView *myAvatar;
+@property (weak, nonatomic) IBOutlet UILabel *myNickName;
+@property (weak, nonatomic) IBOutlet UILabel *myJID;
+@property (weak, nonatomic) IBOutlet UILabel *myAddress;
+@property (weak, nonatomic) IBOutlet UILabel *myGender;
+@property (weak, nonatomic) IBOutlet UILabel *mycity;
+@property (weak, nonatomic) IBOutlet UILabel *myDesc;
 
 @end
 
@@ -29,17 +37,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
-}
 
 /*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
