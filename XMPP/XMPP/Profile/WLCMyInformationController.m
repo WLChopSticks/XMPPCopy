@@ -8,6 +8,7 @@
 
 #import "WLCMyInformationController.h"
 #import "WLCXMPPTool.h"
+#import "WLCInformationEditController.h"
 
 @interface WLCMyInformationController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
@@ -96,6 +97,20 @@
     
     [self dismissViewControllerAnimated:YES completion:nil];
     
+}
+
+
+#pragma -mark 判断是点击的修改名字还是描述
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    WLCInformationEditController *infoEditVC = [segue destinationViewController];
+    BOOL isNickname = [segue.identifier isEqualToString:@"nickname"]? YES : NO;
+    infoEditVC.isNickname = isNickname;
+    
+    infoEditVC.myBlock = ^() {
+        //更新界面
+        [self getDataFromInternet];
+    };
 }
 
 @end

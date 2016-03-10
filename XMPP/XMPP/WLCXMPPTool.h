@@ -34,7 +34,7 @@
 @property (strong, nonatomic) XMPPAutoPing *xmppAutoPing;
 @property (strong, nonatomic) XMPPReconnect *xmppReconnect;
 @property (strong, nonatomic) XMPPvCardTempModule *xmppvCardTempModule;
-@property (strong, nonatomic) XMPPvCardAvatarModule *xmppvCardAvatarModule;
+
 
 //方法
 //单例

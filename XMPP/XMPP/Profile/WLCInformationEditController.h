@@ -10,4 +10,8 @@
 
 @interface WLCInformationEditController : UITableViewController
 
+
+@property (assign, nonatomic) BOOL isNickname;
+@property (copy, nonatomic) void(^myBlock)();
+
 @end

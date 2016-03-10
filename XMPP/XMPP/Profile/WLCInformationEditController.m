@@ -7,6 +7,7 @@
 //
 
 #import "WLCInformationEditController.h"
+#import "WLCXMPPTool.h"
 
 @interface WLCInformationEditController ()
 
@@ -32,12 +33,28 @@
 //取消按钮  干掉栈顶控制器
 - (IBAction)cancleBtnclick:(UIButton *)sender {
     
-
-    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 //点击保存按钮就把最新的数据保存到数据库 并且 销毁栈顶控制器
 - (IBAction)saveBtnClick:(UIButton *)sender {
 
+    NSString *content = self.textField.text;
+    
+    XMPPvCardTemp *vCardTemp = [WLCXMPPTool sharedXMPPTool].xmppvCardTempModule.myvCardTemp;
+    
+    if (self.isNickname) {
+        vCardTemp.desc = content;
+    } else {
+        vCardTemp.nickname = content;
+    }
+    //上传
+    [[WLCXMPPTool sharedXMPPTool].xmppvCardTempModule updateMyvCardTemp:vCardTemp];
+    
+    if (self.myBlock) {
+        self.myBlock();
+    }
+    
+    [self.navigationController popViewControllerAnimated:YES];
     
 }
 
