@@ -159,6 +159,9 @@
 		214553141C910A7400663998 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 214553131C910A7400663998 /* libxml2.tbd */; };
 		214553161C910A7F00663998 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 214553151C910A7F00663998 /* libresolv.tbd */; };
 		214553191C91401700663998 /* WLCXMPPTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 214553181C91401700663998 /* WLCXMPPTool.m */; };
+		214553AF1C9160EF00663998 /* WLCProfileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 214553AE1C9160EF00663998 /* WLCProfileController.m */; };
+		214553B21C91610A00663998 /* WLCMyInformationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 214553B11C91610A00663998 /* WLCMyInformationController.m */; };
+		214553B51C91611B00663998 /* WLCInformationEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 214553B41C91611B00663998 /* WLCInformationEditController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -494,6 +497,12 @@
 		214553151C910A7F00663998 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		214553171C91401700663998 /* WLCXMPPTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCXMPPTool.h; sourceTree = "<group>"; };
 		214553181C91401700663998 /* WLCXMPPTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCXMPPTool.m; sourceTree = "<group>"; };
+		214553AD1C9160EF00663998 /* WLCProfileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCProfileController.h; sourceTree = "<group>"; };
+		214553AE1C9160EF00663998 /* WLCProfileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCProfileController.m; sourceTree = "<group>"; };
+		214553B01C91610A00663998 /* WLCMyInformationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCMyInformationController.h; sourceTree = "<group>"; };
+		214553B11C91610A00663998 /* WLCMyInformationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCMyInformationController.m; sourceTree = "<group>"; };
+		214553B31C91611B00663998 /* WLCInformationEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCInformationEditController.h; sourceTree = "<group>"; };
+		214553B41C91611B00663998 /* WLCInformationEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCInformationEditController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -550,6 +559,7 @@
 			isa = PBXGroup;
 			children = (
 				214551131C91099900663998 /* XMPP-Framework */,
+				214553AC1C9160DD00663998 /* Profile */,
 				214550E31C91095A00663998 /* AppDelegate.h */,
 				214550E41C91095A00663998 /* AppDelegate.m */,
 				214550E61C91095A00663998 /* ViewController.h */,
@@ -1461,6 +1471,19 @@
 			path = libidn;
 			sourceTree = "<group>";
 		};
+		214553AC1C9160DD00663998 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				214553AD1C9160EF00663998 /* WLCProfileController.h */,
+				214553AE1C9160EF00663998 /* WLCProfileController.m */,
+				214553B01C91610A00663998 /* WLCMyInformationController.h */,
+				214553B11C91610A00663998 /* WLCMyInformationController.m */,
+				214553B31C91611B00663998 /* WLCInformationEditController.h */,
+				214553B41C91611B00663998 /* WLCInformationEditController.m */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1607,8 +1630,10 @@
 				214552D71C91099900663998 /* XMPPSoftwareVersion.m in Sources */,
 				2145530E1C91099900663998 /* DDXMLElement.m in Sources */,
 				214552C11C91099900663998 /* XMPPvCardCoreDataStorage.m in Sources */,
+				214553AF1C9160EF00663998 /* WLCProfileController.m in Sources */,
 				214552871C91099900663998 /* XMPPDeprecatedPlainAuthentication.m in Sources */,
 				214552C01C91099900663998 /* XMPPvCardAvatarCoreDataStorageObject.m in Sources */,
+				214553B21C91610A00663998 /* WLCMyInformationController.m in Sources */,
 				214552B81C91099900663998 /* XMPPRoomOccupantHybridMemoryStorageObject.m in Sources */,
 				214552B71C91099900663998 /* XMPPRoomMessageHybridCoreDataStorageObject.m in Sources */,
 				214552B51C91099900663998 /* XMPPRoomHybrid.xcdatamodeld in Sources */,
@@ -1721,6 +1746,7 @@
 				214552EA1C91099900663998 /* XMPPStreamManagementMemoryStorage.m in Sources */,
 				214552FC1C91099900663998 /* GCDMulticastDelegate.m in Sources */,
 				214552E31C91099900663998 /* XMPPMessageArchiving.m in Sources */,
+				214553B51C91611B00663998 /* WLCInformationEditController.m in Sources */,
 				214552EC1C91099900663998 /* XMPPStreamManagement.m in Sources */,
 				214553071C91099900663998 /* DDTTYLogger.m in Sources */,
 				2145529D1C91099900663998 /* XMPPOutgoingFileTransfer.m in Sources */,
@@ -1974,6 +2000,7 @@
 				2145510C1C91095A00663998 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2145510D1C91095A00663998 /* Build configuration list for PBXNativeTarget "XMPPTests" */ = {
 			isa = XCConfigurationList;
@@ -1982,6 +2009,7 @@
 				2145510F1C91095A00663998 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		214551101C91095A00663998 /* Build configuration list for PBXNativeTarget "XMPPUITests" */ = {
 			isa = XCConfigurationList;
@@ -1990,6 +2018,7 @@
 				214551121C91095A00663998 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
