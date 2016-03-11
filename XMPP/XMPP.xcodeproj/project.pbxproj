@@ -162,6 +162,7 @@
 		214553AF1C9160EF00663998 /* WLCProfileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 214553AE1C9160EF00663998 /* WLCProfileController.m */; };
 		214553B21C91610A00663998 /* WLCMyInformationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 214553B11C91610A00663998 /* WLCMyInformationController.m */; };
 		214553B51C91611B00663998 /* WLCInformationEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 214553B41C91611B00663998 /* WLCInformationEditController.m */; };
+		214D1E251C926DFF00FD8B7A /* WLCContactsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 214D1E241C926DFF00FD8B7A /* WLCContactsController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -503,6 +504,8 @@
 		214553B11C91610A00663998 /* WLCMyInformationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCMyInformationController.m; sourceTree = "<group>"; };
 		214553B31C91611B00663998 /* WLCInformationEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCInformationEditController.h; sourceTree = "<group>"; };
 		214553B41C91611B00663998 /* WLCInformationEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCInformationEditController.m; sourceTree = "<group>"; };
+		214D1E231C926DFF00FD8B7A /* WLCContactsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCContactsController.h; sourceTree = "<group>"; };
+		214D1E241C926DFF00FD8B7A /* WLCContactsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCContactsController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1480,6 +1483,8 @@
 				214553B11C91610A00663998 /* WLCMyInformationController.m */,
 				214553B31C91611B00663998 /* WLCInformationEditController.h */,
 				214553B41C91611B00663998 /* WLCInformationEditController.m */,
+				214D1E231C926DFF00FD8B7A /* WLCContactsController.h */,
+				214D1E241C926DFF00FD8B7A /* WLCContactsController.m */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -1625,6 +1630,7 @@
 				214552941C91099900663998 /* XMPPMessage.m in Sources */,
 				2145529F1C91099900663998 /* XMPPProcessOne.m in Sources */,
 				214552C91C91099900663998 /* XMPPvCardTempLabel.m in Sources */,
+				214D1E251C926DFF00FD8B7A /* WLCContactsController.m in Sources */,
 				214552EF1C91099900663998 /* XMPPAutoTime.m in Sources */,
 				214552EB1C91099900663998 /* XMPPStreamManagementStanzas.m in Sources */,
 				214552D71C91099900663998 /* XMPPSoftwareVersion.m in Sources */,
