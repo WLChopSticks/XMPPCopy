@@ -27,6 +27,10 @@
 //数据模型
 #import "XMPPvCardTemp.h"
 
+//好友列表
+#import "XMPPRoster.h"
+#import "XMPPRosterCoreDataStorage.h"
+
 @interface WLCXMPPTool : NSObject
 
 //属性
@@ -34,6 +38,9 @@
 @property (strong, nonatomic) XMPPAutoPing *xmppAutoPing;
 @property (strong, nonatomic) XMPPReconnect *xmppReconnect;
 @property (strong, nonatomic) XMPPvCardTempModule *xmppvCardTempModule;
+@property (strong, nonatomic) XMPPRoster *xmppRoster;
+@property (strong, nonatomic) XMPPRosterCoreDataStorage *xmppRosterCoreDataStorage;
+@property (strong, nonatomic) XMPPvCardAvatarModule *xmppvCardAvatarModule;
 
 
 //方法

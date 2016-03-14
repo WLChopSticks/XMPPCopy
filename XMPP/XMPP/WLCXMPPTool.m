@@ -8,7 +8,7 @@
 
 #import "WLCXMPPTool.h"
 
-@interface WLCXMPPTool ()<XMPPStreamDelegate, XMPPAutoPingDelegate, XMPPReconnectDelegate, XMPPvCardTempModuleDelegate>
+@interface WLCXMPPTool ()<XMPPStreamDelegate, XMPPAutoPingDelegate, XMPPReconnectDelegate, XMPPvCardTempModuleDelegate, XMPPRosterDelegate>
 
 @property (strong, nonatomic) XMPPJID *userJID;
 @property (strong, nonatomic) NSString *userPassWord;
@@ -55,6 +55,9 @@ static WLCXMPPTool *_INSTANCE;
     
     //获取个人信息
     [self getProfileInformation];
+    
+    //获取好友列表
+    [self getContactsList];
 
 }
 
@@ -93,12 +96,25 @@ static WLCXMPPTool *_INSTANCE;
     [vCardTempModule addDelegate:self delegateQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
     [vCardTempModule activate:self.xmppStream];
     //获取头像
-//    XMPPvCardAvatarModule *vCardAvatarModule = [[XMPPvCardAvatarModule alloc]initWithvCardTempModule:vCardTempModule dispatchQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
-//    self.xmppvCardAvatarModule = vCardAvatarModule;
-//    [vCardAvatarModule activate:self.xmppStream];
+    XMPPvCardAvatarModule *vCardAvatarModule = [[XMPPvCardAvatarModule alloc]initWithvCardTempModule:vCardTempModule dispatchQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
+    self.xmppvCardAvatarModule = vCardAvatarModule;
+    [vCardAvatarModule activate:self.xmppStream];
     
     
     
+}
+
+//获取好友列表
+-(void)getContactsList {
+    
+    XMPPRoster *xmppRoster = [[XMPPRoster alloc]initWithRosterStorage:[XMPPRosterCoreDataStorage sharedInstance] dispatchQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
+    self.xmppRoster = xmppRoster;
+    
+    XMPPRosterCoreDataStorage *xmppRosterCoreDataStorage = [XMPPRosterCoreDataStorage sharedInstance];
+    self.xmppRosterCoreDataStorage = xmppRosterCoreDataStorage;
+    
+    xmppRoster.autoFetchRoster = NO;
+    [xmppRoster activate:self.xmppStream];
 }
 
 

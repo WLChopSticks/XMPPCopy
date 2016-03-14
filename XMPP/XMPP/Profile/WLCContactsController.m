@@ -7,8 +7,11 @@
 //
 
 #import "WLCContactsController.h"
+#import "WLCXMPPTool.h"
 
-@interface WLCContactsController ()
+@interface WLCContactsController ()<XMPPRosterDelegate>
+
+@property (strong, nonatomic) NSArray *allContacts;
 
 @end
 
@@ -17,15 +20,67 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [[WLCXMPPTool sharedXMPPTool].xmppRoster addDelegate:self delegateQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
+    [[WLCXMPPTool sharedXMPPTool].xmppRoster fetchRoster];
 }
 
+#pragma -mark roster代理方法
+//开始点名
+-(void)xmppRosterDidBeginPopulating:(XMPPRoster *)sender
+{
+    NSLog(@"xmppRosterDidBeginPopulating");
+}
+//结束点名
+-(void)xmppRosterDidEndPopulating:(XMPPRoster *)sender {
+    
+    //获取好友列表
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        NSManagedObjectContext *context = [WLCXMPPTool sharedXMPPTool].xmppRosterCoreDataStorage.mainThreadManagedObjectContext;
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"XMPPUserCoreDataStorageObject" inManagedObjectContext:context];
+        [fetchRequest setEntity:entity];
+        
+        NSError *error = nil;
+        NSArray *fetchObjects = [context executeFetchRequest:fetchRequest error:&error];
+        NSLog(@"数组--%@",fetchObjects);
+//        NSLog(@"数组--%@",error);
+        self.allContacts = fetchObjects;
+        [self.tableView reloadData];
+        
+    });
+}
 
-#pragma amrk - 加好友
+#pragma -mark tableView数据源代理方法
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.allContacts.count;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *ID = @"cell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+    }
+    XMPPUserCoreDataStorageObject *objc =self.allContacts[indexPath.row];
+    
+    
+    
+    cell.textLabel.text = objc.jidStr;
+    
+    //设置头像  好友的
+    
+    NSData *imageData =  [[WLCXMPPTool sharedXMPPTool].xmppvCardAvatarModule photoDataForJID:objc.jid];
+    cell.imageView.image = [UIImage imageWithData:imageData];
+    cell.imageView.layer.cornerRadius = 20;
+    
+    return cell;
+}
+
+#pragma -mark 加好友
 - (IBAction)addFriend:(UIBarButtonItem *)sender {
     
     

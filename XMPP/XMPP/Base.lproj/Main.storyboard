@@ -730,11 +730,11 @@
             </objects>
             <point key="canvasLocation" x="1409" y="1014"/>
         </scene>
-        <!--Item-->
+        <!--联系人-->
         <scene sceneID="8yb-mE-Upn">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Nzu-EM-KK5" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="7i0-cS-zwg"/>
+                    <tabBarItem key="tabBarItem" title="联系人" id="7i0-cS-zwg"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="m5E-Iz-W79">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
